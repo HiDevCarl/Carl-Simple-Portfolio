@@ -668,6 +668,17 @@ section {
     min-height: 160px;
 }
 
+.recaptcha-container {
+    margin-bottom: 1.8rem;
+    display: flex;
+    justify-content: center;
+}
+
+.g-recaptcha {
+    transform: scale(1);
+    transform-origin: 0 0;
+}
+
 .submit-btn {
     width: 100%;
     padding: 1.2rem;
@@ -830,6 +841,10 @@ footer {
         gap: 2.5rem;
         grid-template-columns: 1fr;
     }
+
+    .g-recaptcha {
+        transform: scale(0.85);
+    }
 }
 
 @media (max-width: 480px) {
@@ -884,6 +899,10 @@ footer {
 
     .btn {
         padding: 1rem 2rem;
+    }
+
+    .g-recaptcha {
+        transform: scale(0.77);
     }
 }
 

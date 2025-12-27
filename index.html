@@ -37,6 +37,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -216,6 +217,9 @@
                     <div class="form-group">
                         <label for="message">Message</label>
                         <textarea id="message" name="message" required placeholder="Share your thoughts, feedback, or questions..." aria-required="true"></textarea>
+                    </div>
+                    <div class="recaptcha-container">
+                        <div class="g-recaptcha" data-sitekey="6LexTDgsAAAAAPPZVWIuYygiH9FCUyDrwbjlDW1V"></div>
                     </div>
                     <button type="submit" class="submit-btn">Send Message</button>
                     <div class="form-message" id="formMessage" role="alert" aria-live="polite"></div>

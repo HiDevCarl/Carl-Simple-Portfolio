@@ -2,14 +2,14 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getDatabase, ref, push, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAoJEo8Q8yPltkFOAIFYcAm_AzhUcS-YPI",
-    authDomain: "carl-portfolio-cc35a.firebaseapp.com",
-    databaseURL: "https://carl-portfolio-cc35a-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "carl-portfolio-cc35a",
-    storageBucket: "carl-portfolio-cc35a.firebasestorage.app",
-    messagingSenderId: "764708600330",
-    appId: "1:764708600330:web:7569ce02e22c221012fdf3",
-    measurementId: "G-FHCHDMW8EM"
+    apiKey: "AIzaSyBBfsVsevd6gwIZM04PYi1NiaCXErSeQ3I",
+    authDomain: "carl-portfolio-d4329.firebaseapp.com",
+    databaseURL: "https://carl-portfolio-d4329-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "carl-portfolio-d4329",
+    storageBucket: "carl-portfolio-d4329.firebasestorage.app",
+    messagingSenderId: "273624734454",
+    appId: "1:273624734454:web:c15fdd621f5ccea1deaad7",
+    measurementId: "G-D78YX720RD"
 };
 
 let app, database;
@@ -86,6 +86,19 @@ form.addEventListener('submit', async (e) => {
     const submitBtn = form.querySelector('.submit-btn');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
+    submitBtn.textContent = 'Verifying...';
+    
+    const recaptchaToken = grecaptcha.getResponse();
+    
+    if (!recaptchaToken) {
+        formMessage.className = 'form-message error';
+        formMessage.textContent = '✗ Please complete the reCAPTCHA verification.';
+        formMessage.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        return;
+    }
+    
     submitBtn.textContent = 'Sending...';
     
     const now = new Date();
@@ -93,20 +106,6 @@ form.addEventListener('submit', async (e) => {
     const formData = {
         name: document.getElementById('name').value.trim(),
         message: document.getElementById('message').value.trim(),
-        date: now.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        }),
-        time: now.toLocaleTimeString('en-US', { 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit',
-            hour12: true
-        }),
-        day: now.toLocaleDateString('en-US', { weekday: 'long' }),
-        month: now.toLocaleDateString('en-US', { month: 'long' }),
-        year: now.getFullYear(),
         timestamp: serverTimestamp()
     };
 
@@ -118,6 +117,7 @@ form.addEventListener('submit', async (e) => {
         formMessage.textContent = '✓ Thank you for reaching out! Your message has been successfully sent.';
         formMessage.style.display = 'block';
         form.reset();
+        grecaptcha.reset();
         
     } catch (error) {
         console.error('Submission error:', error);
